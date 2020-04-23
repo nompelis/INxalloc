@@ -4,7 +4,7 @@ This is a wrapper for the C/C++ heap alloator that we all use. It wraps
 that functionality and uses some auxillary structures such that it can keep
 track (and report) the memory allocation of a process with some granularity.
 
-Motivation
+- Motivation
 
 Suppose you have a piece of software that performs a number of tasks, and
 for each task it needs to allocate memory, which we would like to be able
@@ -16,9 +16,27 @@ the memory usage is much less than the memory we are allocating for usage.
 Having a "drop-in" replacement for the existing heap allocators can help
 during process benchmarking and in performing diagnostics.
 
-What this software dones and how to use it
+- What this software dones and how to use it
+
+Look in the example "main,c" on how to use it. You need to statically create
+(or allocate on your own) a struct of type "inXmem_s" for every component of
+your software for which you want to keep track of memory usage. You need to
+pass to this API the pointer to this structure every time you allocated or
+free a block of memory. You can very quickly abstract its use with some
+preprocessir directives (more on this later).
+
+The API uses the structs to keep track of the number of allocations and
+the total memory usage. But each block can query back the structure under
+whihc it was attached by querying it. The way this works is typicall of
+how operating systems keep track of heap allocations, by having each chunk
+(block) of allocated memory be augmented by a header that keeps track of
+some pieces of information. In this case it keeps track of the pointer to
+the inXmem_s structure that was used to allocate the memory, and also the
+size of the allocated block. Keeping track of its size is what allows for
+accurately keeping track of memory during deallocations.
+
 
 TO BE CONTINUED...
 
-IN 2020/04/22 (Earth day)
+IN 2020/04/23
 
