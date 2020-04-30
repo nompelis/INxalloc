@@ -158,6 +158,49 @@ int inxfree( struct inXmem_s* p, void* mem )
    return 0;
 }
 
+//
+// Function to free a memory block by fiding its segment
+// (This is the "carefree" version of the proper free()-ing function.)
+//
+int inxfreefree( void* mem )
+{
+#ifdef _DEBUG_
+   char FUNC[] = "inxfreefree";
+#endif
+   size_t size_hdr = sizeof( struct inXmemhdr_s );
+   struct inXmemhdr_s* hdr;
+   struct inXmem_s* seg;
+   void* tmp;
+   size_t size;
+
+   if( mem == NULL ) {
+#ifdef _DEBUG_
+      fprintf( stdout, " [%s]  Incoming memory block ipoiner s null \n",FUNC);
+#endif
+      return 2;
+#ifdef _DEBUG_
+   } else {
+      fprintf( stdout, " [%s]  Incoming memory block pointer %p \n",FUNC,mem);
+#endif
+   }
+
+   tmp = mem - size_hdr;
+   hdr = (struct inXmemhdr_s*) tmp;
+   seg = (struct inXmem_s*) hdr->segment;
+#ifdef _DEBUG_
+   fprintf( stdout, " [%s]  Queried segment at %p (id=%d) \n",FUNC,
+            seg, seg->id );
+#endif
+
+   size = hdr->size;
+
+   free( tmp );
+
+   seg->size -= size;
+   seg->num_free += 1;
+
+   return 0;
+}
 
 
 //

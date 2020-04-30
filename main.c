@@ -11,7 +11,7 @@
 int main( int argc, char *argv[] )
 {
    size_t isize;
-   void *p1,*p2;
+   void *p1,*p2,*p3;
    struct inXmem_s s;
 
 
@@ -22,6 +22,8 @@ int main( int argc, char *argv[] )
    p1 = (void*) inxalloc( &s, isize );
    isize = 64;
    p2 = (void*) inxalloc( &s, isize );
+   isize = 128;
+   p3 = (void*) inxalloc( &s, isize );
 
    inxalloc_Struct_Report( &s );
 
@@ -34,6 +36,9 @@ int main( int argc, char *argv[] )
    inxalloc_Struct_Report( &s );
 
    inxfree( &s, p2 );
+   inxalloc_Struct_Report( &s );
+
+   inxfreefree( p3 );
    inxalloc_Struct_Report( &s );
 
    return EXIT_SUCCESS;

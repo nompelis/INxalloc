@@ -5,6 +5,8 @@ void* inxalloc( struct inXmem_s* p, size_t size );
 
 int inxfree( struct inXmem_s* p, void* mem );
 
+int inxfreefree( void* mem );
+
 void inxalloc_Struct_Report( struct inXmem_s* p );
 
 struct inXmem_s* inxalloc_Block_Parent( struct inXmemhdr_s* b );
