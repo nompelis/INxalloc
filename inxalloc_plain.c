@@ -257,3 +257,29 @@ struct inXmem_s* inxalloc_Block_Parent( struct inXmemhdr_s* b )
 }
 
 
+//
+// a global variable to have an opaque memory structure
+//
+static struct inXmem_s global_inmem =
+{
+   .id = -99999,
+   .size = 0,
+   .num_alloc = 0,
+   .num_free = 0
+};
+
+void* inyalloc( size_t size )
+{
+   return inxalloc( & global_inmem, size );
+}
+
+int inyfree( void* mem )
+{
+   return inxfree( & global_inmem, mem );
+}
+
+void inyalloc_Report()
+{
+   inxalloc_Struct_Report( & global_inmem );
+}
+

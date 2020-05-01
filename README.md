@@ -37,9 +37,16 @@ the inXmem_s structure that was used to allocate the memory, and also the
 size of the allocated block. Keeping track of its size is what allows for
 accurately keeping track of memory during deallocations.
 
+Should keeping track total memory is the only need for this API, a set of
+functions "inyalloc( size_t ), inyfree( void* ), and inyalloc_Report()"
+have been added.
+
 
 TO BE CONTINUED...
 
 IN 2020/04/23
+
 IN 2020/04/30
+
+IN 2020/05/01
 
