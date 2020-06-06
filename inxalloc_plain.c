@@ -232,7 +232,7 @@ void inxalloc_Struct_Report( struct inXmem_s* p )
 //
 // Function to query the memory segment to which a block belongs
 //
-struct inXmem_s* inxalloc_Block_Parent( struct inXmemhdr_s* b )
+struct inXmem_s* inxalloc_Block_Parent( void* b )
 {
 #ifdef _DEBUG_
    char FUNC[] = "inxalloc_Block_Info";
@@ -242,7 +242,7 @@ struct inXmem_s* inxalloc_Block_Parent( struct inXmemhdr_s* b )
       fprintf( stdout, "Incoming inXalloc block pointer is null \n");
       return NULL;
    } else {
-      void* tmp = (void*) b;
+      void* tmp = b;
       hdr = (struct inXmemhdr_s*) (tmp - sizeof(struct inXmemhdr_s));
 #ifdef _DEBUG_
       fprintf( stdout, " [%s]  Incoming inXalloc block pointer %p \n",

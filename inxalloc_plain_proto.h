@@ -9,7 +9,7 @@ int inxfreefree( void* mem );
 
 void inxalloc_Struct_Report( struct inXmem_s* p );
 
-struct inXmem_s* inxalloc_Block_Parent( struct inXmemhdr_s* b );
+struct inXmem_s* inxalloc_Block_Parent( void* b );
 
 
 int inyfree( void* mem );
